@@ -1,5 +1,6 @@
 package org.brandon.healingpaws.config;
 
+import org.brandon.healingpaws.auditing.ApplicationAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.AuditorAware;
 public class ApplicationConfiguration {
 
     @Bean
-    AuditorAware<?> auditorAware() {
-        return null;
+    public AuditorAware<String> auditorAware() {
+        return new ApplicationAuditorAware();
     }
 }
