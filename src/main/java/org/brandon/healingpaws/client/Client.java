@@ -28,7 +28,7 @@ public class Client {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Email
     private String email;
 
@@ -38,7 +38,7 @@ public class Client {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "create_at", updatable = false)
+    @Column(name = "created_at", updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 
