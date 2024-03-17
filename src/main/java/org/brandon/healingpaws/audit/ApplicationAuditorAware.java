@@ -1,4 +1,4 @@
-package org.brandon.healingpaws.auditing;
+package org.brandon.healingpaws.audit;
 
 import org.springframework.data.domain.AuditorAware;
 

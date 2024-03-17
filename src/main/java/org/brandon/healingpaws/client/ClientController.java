@@ -1,11 +1,15 @@
 package org.brandon.healingpaws.client;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping("/api/v1/clients")
@@ -14,8 +18,11 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping
-    public ResponseEntity<ClientDTO> save(@RequestBody Client client) {
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClientDTO> save(@RequestBody @Valid Client client) {
+        if (client.getEmail() == null) {
+            return null;
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(client));
     }
 
@@ -29,8 +36,8 @@ public class ClientController {
         return ResponseEntity.ok(clientService.findClientById(id));
     }
 
-    @PutMapping("/{client-id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable("client-id") Long id, @RequestBody ClientDTO dto) {
+    @PutMapping(path = "/{client-id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClientDTO> update(@PathVariable("client-id") Long id, @RequestBody @Valid ClientDTO dto) {
         return ResponseEntity.ok(clientService.updateClient(id, dto));
     }
 
